@@ -4,8 +4,6 @@
 
 	var positionList = JSON.parse(localStorage.getItem('positionList') || "[]");
 
-	var deadlyBoundaries = true;
-
 	var direction = JSON.parse(localStorage.getItem('direction')) || {
 		horizontal: 1,
 		vertical: 0
@@ -17,16 +15,9 @@
 		direction.horizontal && (position.left = Number(jQuery(elem).css('left').replace('px','')) + (direction.horizontal * 15));
 		direction.vertical && (position.top = Number(jQuery(elem).css('top').replace('px','')) + (direction.vertical * 15));
 
-		if(deadlyBoundaries){
-			if(position.top < 0 || position.left < 0 || position.top > jQuery(window).height() || position.left > jQuery(window).width()){
-				clearInterval(movementInterval);
-				alert("Game over!");
-			}
-		}
-		else{
-			position.top && ((position.top > jQuery(window).height() && (position.top = 0)) || (position.top < 0 && (position.top = jQuery(window).height())));
-			position.left && ((position.left > jQuery(window).width() && (position.left = 0)) || (position.left < 0 && (position.left = jQuery(window).width())));
-		}
+		position.top && ((position.top > jQuery(window).height() && (position.top = 0)) || (position.top < 0 && (position.top = jQuery(window).height())));
+		position.left && ((position.left > jQuery(window).width() && (position.left = 0)) || (position.left < 0 && (position.left = jQuery(window).width())));
+
 		return position;
 	};
 
@@ -45,7 +36,7 @@
 
 	jQuery(document).keydown(function(e){
 
-		if(jQuery.inArray(e.keyCode , [17,32,37,38,39,40]) == -1) return;
+		if(jQuery.inArray(e.keyCode , [32,37,38,39,40]) == -1) return;
 
 		if(e.keyCode == 32){
 			saveGameData();
@@ -54,22 +45,16 @@
 			return;
 		}
 
-		if(e.keyCode == 17){
-			deadlyBoundaries = !deadlyBoundaries;
-			e.preventDefault();
-			return;
-		}
-
 		direction = {
-			horizontal: ((e.keyCode == 37 && direction.horizontal!= 1) && -1) || ((e.keyCode == 39 && direction.horizontal!= -1) && 1) || ((e.keyCode == 37 && direction.horizontal== 1) && 1) || ((e.keyCode == 39 && direction.horizontal== -1) && -1) || 0,
-			vertical: ((e.keyCode == 38 && direction.vertical!= 1) && -1) || ((e.keyCode == 40 && direction.vertical!= -1) && 1) || ((e.keyCode == 38 && direction.vertical== 1) && 1) || ((e.keyCode == 40 && direction.vertical== -1) && -1) || 0
+			horizontal: (e.keyCode == 37 && -1) || (e.keyCode == 39 && 1) || 0,
+			vertical: (e.keyCode == 38 && -1) || (e.keyCode == 40 && 1) || 0
 		};
 		e.preventDefault();
 
 	});
 
 
-	var movementInterval = setInterval(function(){
+	setInterval(function(){
 		
 		jQuery('.snakeBody').each(function(key){
 			positionList[key] = {
