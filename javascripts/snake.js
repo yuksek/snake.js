@@ -2,11 +2,15 @@
 
 	var snakeBody = jQuery('<div class="snakeBody">');
 
+	var fruitBody = jQuery('<div class="fruitBody">');
+
 	var positionList = JSON.parse(localStorage.getItem('positionList') || "[]");
 
 	var scoreBoard = jQuery('<div id="scoreBoard" class="score">Your Score : 0</div>');
 
 	var score = JSON.parse(localStorage.getItem('score' || "0"));
+
+	var fruit = {};
 
 	var deadlyBoundaries = true;
 
@@ -38,7 +42,7 @@
 	var elemaniGetir = function(){
 		var targetArea = {
 			top: Number(jQuery('.snakeBody:first').css('top').replace('px','')) + (direction.vertical && direction.vertical * 15),
-			left: Number(jQuery('.snakeBody:first').css('left').replace('px','')) + (direction.horizontal && direction.horizontal * 15)
+			left: Number(jQuery('.snakeBody:first').css('left').replace('px','')) + (direction.vertical && direction.horizontal * 15)
 		};
 		return jQuery(document.elementFromPoint(targetArea.left, targetArea.top));
 	};
@@ -47,6 +51,21 @@
 		localStorage.setItem('positionList', JSON.stringify(positionList));
 		localStorage.setItem('direction', JSON.stringify(direction));
 	};
+
+	var getRandomNumber = function(limit) {
+      return parseInt( Math.random() * limit % limit );
+    }
+
+	var getFruit = function(){
+      fruit = {
+      	top: getRandomNumber(jQuery(window).height()/15)*15+1, 
+      	left: getRandomNumber(jQuery(window).width()/15)*15};
+    }
+
+    var renderFruit = function() {
+      jQuery('.fruitBody').remove()
+      jQuery('body').append(fruitBody.clone().css(fruit));
+    }
 
 	jQuery(document).keydown(function(e){
 
@@ -73,6 +92,13 @@
 
 	});
 
+	var getCellClass = function(){
+		var targetArea = {
+			top: Number(jQuery('.snakeBody:first').css('top').replace('px','')),
+			left: Number(jQuery('.snakeBody:first').css('left').replace('px',''))
+		};
+		return jQuery(document.elementFromPoint(targetArea.left, targetArea.top)).class;
+	}
 
 	var movementInterval = setInterval(function(){
 		
@@ -88,6 +114,14 @@
 
 		});
 
+		if(positionList[0].top == fruit.top && positionList[0].left == fruit.left){
+			alert(getCellClass());
+			score += 2;
+        	jQuery('#scoreBoard').html( 'Your Score : ' + score );
+        	getFruit();
+			renderFruit();
+		}
+
 	}, 200);
 
 	var scoreInterval = setInterval(function(){
@@ -97,7 +131,7 @@
 
 	}, 10000);
 
-	jQuery('body').append('<style>.score {z-index:99999999; color: rgba(0, 0, 255, 0.5);position: fixed; top: 0; left:0;font-size: 16px;font-weight: bold;padding-top: 5px;text-align: center} .snakeBody { z-index:99999999; width: 15px; height: 15px; position: fixed; top: 0; left:0; background: black;} .snakeBody:first-child {background: red;}</style>');
+	jQuery('body').append('<style>.fruitBody { z-index:99999999; width: 15px; height: 15px; position: fixed; top: 0; left:0; background: green;} .score {z-index:99999999; color: rgba(0, 0, 255, 0.5);position: fixed; top: 0; left:0;font-size: 16px;font-weight: bold;padding-top: 5px;text-align: center} .snakeBody { z-index:99999999; width: 15px; height: 15px; position: fixed; top: 0; left:0; background: black;} .snakeBody:first-child {background: red;}</style>');
 
 	var i=0;
 	while(i<20){
@@ -106,5 +140,7 @@
 	}
 	jQuery('.snakeBody:first').css('background','red');
 	jQuery('body').append(scoreBoard.clone());
+	getFruit();
+	renderFruit();
 
 })();
