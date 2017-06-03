@@ -4,6 +4,8 @@
 
 	var positionList = JSON.parse(localStorage.getItem('positionList') || "[]");
 
+	var deadlyBoundaries = true;
+
 	var direction = JSON.parse(localStorage.getItem('direction')) || {
 		horizontal: 1,
 		vertical: 0
@@ -15,9 +17,16 @@
 		direction.horizontal && (position.left = Number(jQuery(elem).css('left').replace('px','')) + (direction.horizontal * 15));
 		direction.vertical && (position.top = Number(jQuery(elem).css('top').replace('px','')) + (direction.vertical * 15));
 
-		position.top && ((position.top > jQuery(window).height() && (position.top = 0)) || (position.top < 0 && (position.top = jQuery(window).height())));
-		position.left && ((position.left > jQuery(window).width() && (position.left = 0)) || (position.left < 0 && (position.left = jQuery(window).width())));
-
+		if(deadlyBoundaries){
+			if(position.top < 0 || position.left < 0 || position.top > jQuery(window).height() || position.left > jQuery(window).width()){
+				clearInterval(movementInterval);
+				alert("Game over!");
+			}
+		}
+		else{
+			position.top && ((position.top > jQuery(window).height() && (position.top = 0)) || (position.top < 0 && (position.top = jQuery(window).height())));
+			position.left && ((position.left > jQuery(window).width() && (position.left = 0)) || (position.left < 0 && (position.left = jQuery(window).width())));
+		}
 		return position;
 	};
 
@@ -36,11 +45,17 @@
 
 	jQuery(document).keydown(function(e){
 
-		if(jQuery.inArray(e.keyCode , [32,37,38,39,40]) == -1) return;
+		if(jQuery.inArray(e.keyCode , [17,32,37,38,39,40]) == -1) return;
 
 		if(e.keyCode == 32){
 			saveGameData();
 			elemaniGetir().length >0 && (elemaniGetir()[0].click());
+			e.preventDefault();
+			return;
+		}
+
+		if(e.keyCode == 17){
+			deadlyBoundaries = !deadlyBoundaries;
 			e.preventDefault();
 			return;
 		}
@@ -54,7 +69,7 @@
 	});
 
 
-	setInterval(function(){
+	var movementInterval = setInterval(function(){
 		
 		jQuery('.snakeBody').each(function(key){
 			positionList[key] = {
