@@ -1,7 +1,7 @@
+![](https://png.icons8.com/year-of-snake/color/96/)
+
 # snake.js
 
-
-![](https://png.icons8.com/year-of-snake/color/96/)
 snake.js is a chrome extension where you can start playing snake game on any webpage you want.
 
 ## rules
