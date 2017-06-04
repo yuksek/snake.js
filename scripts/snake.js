@@ -98,7 +98,7 @@
 
 		if(e.keyCode == 32){ // when space is pressed, saves game and presses the link on the element if link available
 			saveGameData();
-			elemaniGetir().length >0 && (elemaniGetir()[0].click());
+			getElement().length >0 && (getElement()[0].click());
 			e.preventDefault();
 			return;
 		}
