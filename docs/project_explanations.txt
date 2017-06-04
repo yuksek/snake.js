@@ -1,0 +1,22 @@
+Bu proje bazı teknik problemler ve eksik detaylar içermektedir.
+Sizden problemleri çözmeniz ve eksikleri tamamlamanız isteniyor.
+
+İstenenler:
+# Proje gittigidiyor.com üzerinde yapılacak.
+# Projede yanlış olan yerler düzeltilecek ve neden yanlış olduğu bir dökümanda belirtilecek.
+
+Yapılacaklar:
+# Oyuna skor hesaplaması eklenecek. Her 10 saniyede bir skor 1, her yem yendiğinde skor 2 artacak ve skoru gösteren bir ekran eklenecek.
+# Yılan yem yiyebilecek ve yem yedikçe boyu uzayacak.
+# Yılan gittiği yönün tersine gidemiyor olmalı. (Örn: Sağa doğru giderken doğrudan sola dönememeli.)
+# Fonksiyonlara kod içerisinde comment eklenecek.
+# Fonksiyonların ne işe yaradıklarına dair açıklamalar dökümana eklenecek.
+# Skor ekranında CSS ile animasyonlar bulunacak.
+# Kayıt ol sayfasına gittiğinde (gittigidiyor üzerinde) yılan kaldığı yerden devam edemiyor. Kaldığı yerden devam etmesi için gerekli işlemler yapılacak.
+# Sınırlara çarpınca oyun bitmeli ve oyunun bittiğine dair bilgilendirme ekranı skor ile birlikte çıkmalı.
+# Kuyruğa çarpınca oyun bitmeli ve oyunun bittiğine dair bilgilendirme ekranı skor ile birlikte çıkmalı.
+
+Bonuslar:
+# Proje chrome extension haline getirilmeli.
+# Sınırlara çarpınca oyunun bitmesi opsiyonel olmalı.
+# Kuyruğa çarpınca oyunun bitmesi opsiyonel olmalı.

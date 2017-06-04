@@ -2,9 +2,9 @@
 
 function execute() {
 
-	chrome.tabs.executeScript({file: 'javascripts/jquery.min.js'});
+	chrome.tabs.executeScript({file: 'scripts/jquery.min.js'});
 	
-  	chrome.tabs.executeScript({file: 'javascripts/snake.js'}); 
+  	chrome.tabs.executeScript({file: 'scripts/snake.js'}); 
 
 }
 
