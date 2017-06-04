@@ -2,7 +2,7 @@
 
 # snake.js
 
-snake.js is a chrome extension where you can start playing snake game on any webpage you want.
+snake.js is a chrome extension where you can start playing snake game on any webpage you want. It's in unpacked extension state in this repository.
 
 ## rules
   - for every 10 seconds you earn ```+1``` points.
@@ -11,5 +11,13 @@ snake.js is a chrome extension where you can start playing snake game on any web
   - you can disable deadly borders by pressing ```ctrl```
   - you can disable dying when you collide with yourself by pressing ```alt```
   
+## how to install 
+
+  - Clone repository into a local directory.
+  - Visit chrome://extensions.
+  - Enable Developer mode by ticking the checkbox in the upper-right corner.
+  - Click on the "Load unpacked extension..." button.
+  - Select the directory containing snake.js repository.
+
 
 
