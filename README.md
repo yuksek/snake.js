@@ -3,6 +3,7 @@
 # snake.js
 
 snake.js is a chrome extension where you can start playing snake game on any webpage you want. 
+
 It's in unpacked extension state in this repository, and needs to be installed accordingly.
 
 ## rules
