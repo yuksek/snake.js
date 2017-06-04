@@ -151,14 +151,14 @@
 
 	}, 10000);
 
-	jQuery('body').append('<style>@keyframes pulse { 0% { color: rgba(0, 0, 255, 0.5); } 100% { color: rgba(255, 255, 255, 0.8); } } @keyframes stretch {0% {transform: scale(.3); background-color: red;  border-radius: 100%; } 50% {   background-color: orange  }  100% { transform: scale(1.5);    background-color: yellow;  }} @keyframes asd {0% {transform: scale(.3); background-color: white;  border-radius: 100%; } 50% {   background-color: cyan  }  100% { transform: scale(1.5);    background-color: blue;  }} .fruitBody { z-index:99999999; animation-name: stretch;  animation-duration: 1.5s; animation-timing-function: ease-out; animation-delay: 0s; animation-direction: alternate; animation-iteration-count: infinite; animation-fill-mode: none; animation-play-state: running;  width: 15px; height: 15px; position: fixed; top: 0; left:0; background: rgba(0, 255, 255, 1);} .score {z-index:99999999; color: rgba(255, 255, 255, 0.8);position: fixed; right:5px; width:400px; top: 5px; padding:5px;font-size: 16px;font-weight: bold;text-align: left;background-color: rgba(0, 0, 255, 0.5);} .snakeBody { z-index:99999999; width: 15px; height: 15px; position: fixed; top: 0; left:0; background: black;} .snakeBody:first-child {animation-name: asd;  animation-duration: 1.5s; animation-timing-function: ease-out; animation-delay: 0s; animation-direction: alternate; animation-iteration-count: infinite; animation-fill-mode: none; animation-play-state: running;background: red;}</style>');
+	jQuery('body').append('<style>@keyframes pulse { 0% { color: rgba(0, 0, 255, 0.5); } 100% { color: rgba(255, 255, 255, 0.8); } } @keyframes stretch {0% {transform: scale(.3); background-color: red;  border-radius: 100%; } 50% {   background-color: orange  }  100% { transform: scale(1.5);    background-color: yellow;  }} .fruitBody { z-index:99999999; animation-name: stretch;  animation-duration: 1.5s; animation-timing-function: ease-out; animation-delay: 0s; animation-direction: alternate; animation-iteration-count: infinite; animation-fill-mode: none; animation-play-state: running;  width: 15px; height: 15px; position: fixed; top: 0; left:0; background: rgba(0, 255, 255, 1);} .score {z-index:99999999; color: rgba(255, 255, 255, 0.8);position: fixed; right:5px; width:400px; top: 5px; padding:5px;font-size: 16px;font-weight: bold;text-align: left;background-color: rgba(0, 0, 255, 0.5);} .snakeBody { z-index:99999999; width: 15px; height: 15px; position: fixed; top: 0; left:0; background: purple;border-style: solid; border-width: 1px;border-color:rgba(238,130,238,0.3)} .snakeBody:first-child {background: rgba(162, 107, 162,1);}</style>');
 
 	var i=0;
 	while(i<20){
 		jQuery('body').append(snakeBody.clone().css(positionList[i] || {}));
 		i++;
 	}
-	jQuery('.snakeBody:first').css('background','red');
+	jQuery('.snakeBody:first').css('background','rgba(162, 107, 162,1)');
 	jQuery('body').append(scoreBoard.clone());
 	getFruit();
 	renderFruit();
