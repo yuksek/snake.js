@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "snake.js",
-  "description": "Play snake instatly on the webpage before you click a link, build up your score as you can while you browse.",
+  "description": "Play snake instantly on the webpage before you click a link, build up your score as you can while you browse.",
   "version": "1.0",
 
   "icons": {
