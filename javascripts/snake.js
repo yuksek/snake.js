@@ -6,9 +6,9 @@
 
 	var positionList = JSON.parse(localStorage.getItem('positionList') || "[]");
 
-	var scoreBoard = jQuery('<div id="scoreBoard" class="score">Your Score : 0</div>');
+	var score = JSON.parse(localStorage.getItem('score')) || 0;
 
-	var score = JSON.parse(localStorage.getItem('score' || "0"));
+	var scoreBoard = jQuery('<div id="scoreBoard" class="score">Your Score : '+score+'<br>Press CTRL to disable/re-enable deadlyBoundaries<br>Press ALT to disable/re-enable deadlyTail</div>');
 
 	var fruit = {};
 
@@ -54,6 +54,7 @@
 	var saveGameData = function(){
 		localStorage.setItem('positionList', JSON.stringify(positionList));
 		localStorage.setItem('direction', JSON.stringify(direction));
+		localStorage.setItem('score', JSON.stringify(score));
 	};
 
 	var getRandomNumber = function(limit) {
@@ -104,7 +105,6 @@
 
 	var checkCollision = function(position){
   		for(var i = 0; i < positionList.length; i++){
-  			console.log(position.top+' '+positionList[i].top+' '+position.left+' '+positionList[i].left);
     		if(position.top == positionList[i].top && position.left == positionList[i].left){
     			gameOver();
     		}
@@ -114,7 +114,10 @@
 	var gameOver = function(){
 		clearInterval(movementInterval);
 		clearInterval(scoreInterval);
-		alert("Game over!");
+		alert("Game Over! Your score is: "+score);
+		jQuery('.snakeBody').remove();
+		jQuery('.fruitBody').remove();
+		jQuery('.score').remove();
 	}
 
 	var movementInterval = setInterval(function(){
@@ -127,12 +130,13 @@
 			if(key == 0)
 				jQuery(this).css(getNextPosition(jQuery(this)));
 			else 
-				jQuery(this).css(positionList[key-1]);			
+				jQuery(this).css(positionList[key-1]);	
+			console.log(positionList[0].top+' '+positionList[0].left);		
 		});
 
 		if(positionList[0].top == fruit.top && positionList[0].left == fruit.left){
 			score += 2;
-       		jQuery('#scoreBoard').html( 'Your Score : ' + score );
+       		jQuery('#scoreBoard').html( 'Your Score : <span style="animation: pulse 3s">' + score +'</span><br>Press CTRL to disable/re-enable deadlyBoundaries<br>Press ALT to disable/re-enable deadlyTail');
        		jQuery('body').append(snakeBody.clone().css(positionList[i] || {}));
        		getFruit();
 			renderFruit();
@@ -143,11 +147,11 @@
 	var scoreInterval = setInterval(function(){
 		
 		score += 1;
-        jQuery('#scoreBoard').html( 'Your Score : ' + score );
+        jQuery('#scoreBoard').html( 'Your Score : <span style="animation: pulse 3s">' + score +'</span><br>Press CTRL to disable/re-enable deadlyBoundaries<br>Press ALT to disable/re-enable deadlyTail</div>' );
 
 	}, 10000);
 
-	jQuery('body').append('<style>.fruitBody { z-index:99999999; width: 15px; height: 15px; position: fixed; top: 0; left:0; background: rgba(0, 255, 255, 1);} .score {z-index:99999999; color: rgba(0, 0, 255, 0.5);position: fixed; top: 0; left:0;font-size: 16px;font-weight: bold;padding-top: 5px;text-align: center} .snakeBody { z-index:99999999; width: 15px; height: 15px; position: fixed; top: 0; left:0; background: black;} .snakeBody:first-child {background: red;}</style>');
+	jQuery('body').append('<style>@keyframes pulse { 0% { color: rgba(0, 0, 255, 0.5); } 100% { color: rgba(255, 255, 255, 0.8); } } @keyframes stretch {0% {transform: scale(.3); background-color: red;  border-radius: 100%; } 50% {   background-color: orange  }  100% { transform: scale(1.5);    background-color: yellow;  }} @keyframes asd {0% {transform: scale(.3); background-color: white;  border-radius: 100%; } 50% {   background-color: cyan  }  100% { transform: scale(1.5);    background-color: blue;  }} .fruitBody { z-index:99999999; animation-name: stretch;  animation-duration: 1.5s; animation-timing-function: ease-out; animation-delay: 0s; animation-direction: alternate; animation-iteration-count: infinite; animation-fill-mode: none; animation-play-state: running;  width: 15px; height: 15px; position: fixed; top: 0; left:0; background: rgba(0, 255, 255, 1);} .score {z-index:99999999; color: rgba(255, 255, 255, 0.8);position: fixed; right:5px; width:400px; top: 5px; padding:5px;font-size: 16px;font-weight: bold;text-align: left;background-color: rgba(0, 0, 255, 0.5);} .snakeBody { z-index:99999999; width: 15px; height: 15px; position: fixed; top: 0; left:0; background: black;} .snakeBody:first-child {animation-name: asd;  animation-duration: 1.5s; animation-timing-function: ease-out; animation-delay: 0s; animation-direction: alternate; animation-iteration-count: infinite; animation-fill-mode: none; animation-play-state: running;background: red;}</style>');
 
 	var i=0;
 	while(i<20){
